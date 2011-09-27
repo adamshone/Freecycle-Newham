@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	
+	<bean id="freecycleFeed" class="com.adamshone.freecycle.FreecycleFeed">
+		<constructor-arg index="0" ref="postProvider" />
+		<constructor-arg index="1" ref="postReceiver" />
+		<!-- 1000 * 60 * 5 = 5 minutes -->
+		<constructor-arg index="2" value="300000" /> 	
+	</bean>
+	
+	<bean id="postProvider" class="com.adamshone.freecycle.impl.FreecycleNewhamScraper">
+		<constructor-arg index="0" ref="parser" />
+		<constructor-arg index="1" value="EEE MMM dd HH:mm:ss yyyy" />
+	</bean>
+	
+	<bean id="postReceiver" class="com.adamshone.freecycle.impl.TwitterPostReceiver">
+		<constructor-arg index="0" ref="twitterFactory"/>
+		<constructor-arg index="1" value="FreecycleNewham" />
+	</bean>
+	
+	<bean id="parser" class="org.htmlparser.Parser">
+		<constructor-arg index="0" value="http://groups.freecycle.org/freecycle-newham/posts/all?page=1&amp;resultsperpage=50&amp;showall=off&amp;include_offers=off&amp;include_wanteds=off&amp;include_receiveds=off&amp;include_takens=on" />
+	</bean>
+	
+	<bean id="twitterFactory" class="twitter4j.TwitterFactory" />
+	
+</beans>
