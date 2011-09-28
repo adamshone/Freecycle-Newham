@@ -11,6 +11,8 @@ Freecycle organisation.
 
 For Developers:
 
+https://github.com/adamshone/Freecycle-Newham
+
 The code is provided for reference only. You don't need to run it yourself, 
 there is already an instance running - just follow @FreecycleNewham for the 
 latest posts. The application will in any case not run unless you add the oAuth 
